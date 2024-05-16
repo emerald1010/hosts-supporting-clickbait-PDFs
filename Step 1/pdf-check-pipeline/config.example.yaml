@@ -1,0 +1,23 @@
+global:
+    debug:
+        path: ./Debug
+    providers:
+        phishing:
+            postgres:
+                host: localhost
+                port: 5432
+                database: db
+                user: user
+                password: password
+            file_storage: /path/to/pdf-check-pipeline/filestorage
+            daily_backups: /path/to/pdf-check-pipeline/backups
+            screenshot_storage: /path/to/pdf-check-pipeline/screenshots
+            thumbnail_storage: /path/to/pdf-check-pipeline/thumbnail
+            excluded_domains: /path/to/domains_excluded_from_study.txt
+        tmp:
+            tmp_file_storage: /tmp/
+    processes:
+        redis:
+            database: 0
+            host: localhost
+            port: 6379

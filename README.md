@@ -60,6 +60,8 @@ The file path of the configuration file must be passed as an input parameter (`-
 Additionally, most of the scripts rely on the existence of a PostgresDB.
 
 A further dependency of some scripts is introduced by the use of VPNs, which are necessary to avoid traffic filtering/limiting policies from hosting providers when the volume of requests is too high. 
+The VPNs were instantiated as proxies via Docker containers by using [https://hub.docker.com/r/qmcgaw/gluetun](https://hub.docker.com/r/qmcgaw/gluetun).
+
 
 ## Step 1
 
@@ -98,3 +100,4 @@ A further dependency of some scripts is introduced by the use of VPNs, which are
 ## Step 4
 ### Clustering module
 - `visual-pdf-classifier/*`: contains the code to select the screenshots and cluster them. The entry point is `clustering_pipeline.ipynb`. The script may stop and require manual analysis of the conflicts if it cannot fix them itself.
+
