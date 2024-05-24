@@ -209,7 +209,7 @@ def get_dns_info(domain):
 
 
 def remove_redundancy(dns_records):
-    with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['ginopino'], password=db_bindings['passwords']['ginopino'], host=db_bindings['host']) as conn:
+    with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['user'], password=db_bindings['passwords']['password'], host=db_bindings['host']) as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute("""
@@ -312,7 +312,7 @@ def process_slice(slice):
     __LOGGER__.debug('Inserting current chunk in `dns_records`.')
 
     engine = create_engine('postgresql://{user}:{password}@{host}:{port}/{dbname}'
-                           .format(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['ginopino'], password=db_bindings['passwords']['ginopino'],
+                           .format(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['user'], password=db_bindings['passwords']['password'],
                                    host=db_bindings['host'], port=db_bindings['port']), pool_pre_ping=True)
     try:
         updated_or_new_DNSes.to_sql('dns_records', con=engine, if_exists='append', index=False, chunksize=1000, method='multi')
@@ -373,7 +373,7 @@ if __name__ == '__main__':
     global __LOGGER__; __LOGGER__ = log.getlogger(component='host_info_extraction', level=log.INFO, filename=log_file_path)
 
     import_date = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
-    with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['ginopino'], password=db_bindings['passwords']['ginopino'],
+    with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['user'], password=db_bindings['passwords']['password'],
                           host=db_bindings['host']) as conn:
         with conn.cursor() as cur:
             try:

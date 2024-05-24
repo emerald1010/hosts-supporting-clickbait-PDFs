@@ -63,6 +63,9 @@ A further dependency of some scripts is introduced by the use of VPNs, which are
 The VPNs were instantiated as proxies via Docker containers by using [https://hub.docker.com/r/qmcgaw/gluetun](https://hub.docker.com/r/qmcgaw/gluetun).
 
 
+Finally, we excluded some domains from scanning, as domain owners have the right to withdraw from experiments. These domains are specified in `/path/to/domains_excluded_from_study.txt`.
+
+
 ## Step 1
 
 ### PDF Metadata Analysis

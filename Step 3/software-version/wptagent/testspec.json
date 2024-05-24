@@ -1,0 +1,12 @@
+{
+    "browser": "Chrome",
+    "axe": 0,
+    "debug": 1,
+    "Capture Video": 0,
+    "disable_video": 1,
+    "addCmdLine": "--no-sandbox",
+    "htmlbody": 1,
+    "ignoreSSL": 1,
+    "timeout": 15,
+    "AppendUA": "measurement study for research. contact: yourname@yourinstitution.com"
+}

@@ -76,7 +76,7 @@ class DbWrapper:
     def __init__(self, db_bindings, database, user, autocommit):
         self.database = db_bindings['databases'][database]
         self.user = db_bindings['users'][user]
-        self.password = db_bindings['passwords'][user]
+        self.password = db_bindings['passwords'][password]
         self.host = db_bindings['host']
         self.port = db_bindings['port']
         self.autocommit = autocommit
@@ -669,7 +669,7 @@ def flush_temporary_files(d):
             bar.next()
 
 def evaluate_page_num():
-    with psycopg2.connect(dbname='pipeline', user='postgres', password='postgres', host='127.0.0.1') as conn:
+    with psycopg2.connect(dbname='pipeline', user='user', password='password', host='127.0.0.1') as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute("""
@@ -693,7 +693,7 @@ def main():
     yesterday = (datetime.today() - timedelta(days=1)).date()
 
     __LOGGER__.info("Running with default setting: process PDFs from {}.\nFetching data...".format(yesterday.strftime("%Y-%m-%d")))
-    with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['ginopino'], password=db_bindings['passwords']['ginopino'], host=db_bindings['host']) as conn:
+    with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['user'], password=db_bindings['passwords']['password'], host=db_bindings['host']) as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute("""
@@ -716,7 +716,7 @@ def main():
     whole_analysis_timer = perf_counter()
 
     psycopg2.extensions.register_adapter(np.int64, psycopg2._psycopg.AsIs)
-    db_wrapper = DbWrapper(db_bindings, 'pipeline', 'ginopino', True)
+    db_wrapper = DbWrapper(db_bindings, 'pipeline', 'user', True)
 
     for counter, (filehash, pages, screenshot_width, screenshot_height) in enumerate(sampled_files):
         pdf_path = os.path.join(filesys_entrypoint, 'samples', rel_path(filehash), filehash)

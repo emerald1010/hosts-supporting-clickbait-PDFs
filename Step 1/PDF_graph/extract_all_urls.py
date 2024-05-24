@@ -40,7 +40,7 @@ class DbWrapper:
     def __init__(self, db_bindings, database, user, autocommit):
         self.database = db_bindings['databases'][database]
         self.user = db_bindings['users'][user]
-        self.password = db_bindings['passwords'][user]
+        self.password = db_bindings['passwords'][password]
         self.host = db_bindings['host']
         self.port = db_bindings['port']
         self.autocommit = autocommit
@@ -90,8 +90,8 @@ class HostingServices:
         self._known_services = self._fetch_known_services(db_bindings)
 
     def _fetch_known_services(self, db_bindings):
-        with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['ginopino'],
-                              password=db_bindings['passwords']['ginopino'], host=db_bindings['host']) as conn:
+        with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['user'],
+                              password=db_bindings['passwords']['password'], host=db_bindings['host']) as conn:
             with conn.cursor() as cur:
                 try:
                     cur.execute("""
@@ -548,7 +548,7 @@ def do(config):
     known_service_providers = hs.known_services
 
     yesterday = (datetime.today() - timedelta(days=1)).date().strftime("%Y-%m-%d")
-    with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['ginopino'], password=db_bindings['passwords']['ginopino'], host=db_bindings['host']) as conn:
+    with psycopg2.connect(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['user'], password=db_bindings['passwords']['password'], host=db_bindings['host']) as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute("""
@@ -626,7 +626,7 @@ def do(config):
             __LOGGER__.info('Skipping insert of empty DF...')
             continue
 
-        engine = create_engine('postgresql://{user}:{password}@{host}:{port}/{dbname}'.format(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['ginopino'], password=db_bindings['passwords']['ginopino'], host=db_bindings['host'], port=db_bindings['port']), pool_pre_ping=True)
+        engine = create_engine('postgresql://{user}:{password}@{host}:{port}/{dbname}'.format(dbname=db_bindings['databases']['pipeline'], user=db_bindings['users']['user'], password=db_bindings['passwords']['password'], host=db_bindings['host'], port=db_bindings['port']), pool_pre_ping=True)
 
         final = df_binary.merge(merged, how='outer', on=['uri', 'filehash'])
         try:
