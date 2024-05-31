@@ -1,0 +1,19 @@
+global:
+    debug:
+        path: ./Debug/
+    providers:
+        contagio:
+            path: /path/to/storage/
+            benign_folder: clean_all_files
+            malicious_folder: malware_pdf_all_files
+        phishing:
+            postgres:
+                host:
+                port: 5432
+                database: pipeline
+                user:
+                password:
+            file_storage:
+    filetypes:
+        pdf:
+            peeppdf: /path/to/PeepPDF/
